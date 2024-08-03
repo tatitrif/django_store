@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    <head>
+        <title>
+            {% block title %}
+                {{ store_name }}
+            {% endblock title %}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="keywords"
+              content="{% block keywords %} {% endblock keywords %}">
+        <meta name="description"
+              content="{% block meta_descr %} {% endblock meta_descr %}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <a href="{% url "store:home" %}">{{ store_name }}</a>
+                <ul>
+                    {% for s in store %}<li>{{ s.phone }}</li>{% endfor %}
+                </ul>
+                <nav>
+                    {% block header_menu %}
+                        <ul>
+                            {% for tm in top_menu %}
+                                <li>
+                                    <a href="{{ tm.get_absolute_url }}">{{ tm.name }}</a>
+                                </li>
+                            {% endfor %}
+                            <li>
+                                <a href="{% url "store:feedback" %}">Contact us</a>
+                            </li>
+                        </ul>
+                    {% endblock header_menu %}
+                </nav>
+                <div class="breadcrumbs">
+                    {% block breadcrumbs %}
+                    {% endblock breadcrumbs %}
+                </div>
+            </header>
+            <main>
+                {% block content %}
+                {% endblock content %}
+            </main>
+            <footer>
+                <nav>
+                    {% block footer_menu %}
+                        <ul>
+                            {% for bm in bottom_menu %}
+                                <li>
+                                    <a href="{{ bm.get_absolute_url }}">{{ bm.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock footer_menu %}
+                </nav>
+                <div class="copyright">
+                    {% now "Y" as current_year %}
+                    © Copyright {{ current_year }}
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
