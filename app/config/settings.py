@@ -39,7 +39,7 @@ THIRD_PARTY_APPS = [
     "tinymce",
 ]
 LOCAL_APPS = [
-    "store.apps.InfoConfig",
+    "store.apps.StoreConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

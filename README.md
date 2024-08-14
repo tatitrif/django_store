@@ -7,18 +7,16 @@
 
 - В файле `settings.py` определяются переменные среды, а для их конфигурации используется файл `.env`
 
-- `DEBUG = True` в файле `.env` запускает проект в **режиме разработки**
+  - `DEBUG = True` в файле `.env` запускает проект в **режиме разработки** (с дебаггером)
 
-- `DEBUG = False` в файле `.env` либо отсутствие `DEBUG` в  файле `.env` запускает проект в **режим эксплуатации**
--
-- Чтобы запустить среду в **режиме разработки** с базой данной [PostgreSQL](https://www.postgresql.org/),
-необходимо указать в  файле `.env` переменный `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
-и соответствующие ему переменные `DJANGO_POSTGRES_HOST`, `DJANGO_POSTGRES_DB`. `DJANGO_POSTGRES_USER` и
-`DJANGO_POSTGRES_PASSWORD` в  файле `.env`
+  - `DEBUG = False` в файле `.env` (либо его отсутствие) запускает проект в **режим эксплуатации**
+
 
 # Быстрый старт
 
-## Запустить проект можно с помощью [docker-compose](https://docs.docker.com/compose/install/)
+## Запускаем в **режим эксплуатации**  проект с помощью [docker-compose](https://docs.docker.com/compose/install/)
+
+1.  Чтобы запустить среду с базой данной [SQLite](https://www.sqlite.org/)
 
   ```shell
   mv .env.example .env
@@ -26,45 +24,17 @@
   docker-compose up -d --build
   ```
 
-## Либо с помощью [Poetry](https://python-poetry.org/).
-После установки соответствующего программного обеспечения выполните указанные команды:
-
-- Перенести нужные файлы в рабочую директорию и перейти в рабочий каталог
+2.  Чтобы запустить среду с базой данной [PostgreSQL](https://www.postgresql.org/)
 
   ```shell
-  mv pyproject.toml ./app/pyproject.toml
+  mv .env.example .env
 
-  mv .env.example ./app/.env
-
-  cd ./app
+  docker-compose -f docker-compose.yml -f docker-compose-prod.yml  up -d --build
   ```
 
-- Настроить среду разработки
 
-  ```shell
-  poetry install
-  ```
-- Создать все таблицы командами
-
-  ```shell
-  python manage.py makemigrations store
-  python manage.py migrate
-  ```
-
-- Создать суперпользователя для доступа к административной панели
-
-  ```shell
-  python manage.py ensure_adminuser --no-input
-  ```
-
-- Запустить сервер в режиме разработки:
-
-  ```shell
-  python manage.py runserver
-  ```
-
-Администрирование базы данных происходит через панель управления по адресу http://localhost:8000/admin.
-Для авторизации используйте предварительно созданные данные суперпользователя.
+Панель администратора приложения находится по адресу http://localhost:80/admin.
+Для авторизации используйте предварительно созданные данные суперпользователя (из `.env`).
 
 # Проверка кода
 

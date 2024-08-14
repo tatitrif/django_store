@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ContactInfo, Feedback, PageInfo
+from .models import Feedback, PageInfo, StoreInfo
 
 
 @admin.register(PageInfo)
@@ -27,9 +27,10 @@ class PageInfoAdmin(admin.ModelAdmin):
         "name",
     ]
     save_on_top = True
+    save_as = True
 
 
-@admin.register(ContactInfo)
+@admin.register(StoreInfo)
 class StoreInfoAdmin(admin.ModelAdmin):
     list_display = (
         "site",
@@ -47,6 +48,7 @@ class StoreInfoAdmin(admin.ModelAdmin):
         "-updated_at",
     ]
     save_on_top = True
+    save_as = True
 
 
 @admin.register(Feedback)
@@ -68,3 +70,4 @@ class FeedbackAdmin(admin.ModelAdmin):
         "-created_at",
     ]
     save_on_top = True
+    save_as = True

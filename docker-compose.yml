@@ -15,8 +15,6 @@ services:
     volumes:
       - static_volume:/app/static
       - ./app:/app
-    depends_on:
-      - postgres
   nginx:
     image: nginx:1.27.0
     container_name: nginx

@@ -1,18 +1,70 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load static %}
 {% block title %}
-    Контактная форма
+    {% translate "Feedback form" %}
 {% endblock title %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">{% translate "Feedback form" %}</li>
+{% endblock breadcrumbs %}
+{% block title_section %}
+    <style>
+        #title_section {
+            background: rgb(252 175 42 / 40%);
+            background-size: cover;
+        }
+    </style>
+    <section id="title_section">
+        <div class="container">
+            <h1>{% translate "Contact Us" %}</h1>
+        </div>
+    </section>
+{% endblock title_section %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-error">{{ form.non_field_errors }}</div>
-        {% for f in form %}
-            <p>
-                <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>
-                {{ f }}
-            </p>
-            <div class="form-error">{{ f.errors }}</div>
-        {% endfor %}
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="p-60" id="contact__page">
+        {% if store_info %}
+            <div class="list__contacts flex">
+                {% for store in store_info %}
+                    {% if store.address %}
+                        <div class="item">
+                            <div class="i-bg">
+                                <i class="fa fa-map-marker-alt"></i>
+                            </div>
+                            <span>{% translate "Address" %}</span>
+                            <p>{{ store.address }}</p>
+                        </div>
+                    {% endif %}
+                    {% if store.phone %}
+                        <div class="item">
+                            <div class="i-bg">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <span>{% translate "Phone" %}</span>
+                            <p>
+                                <a href="tel:{{ store.phone }}">{{ store.phone }}</a>
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if store.email %}
+                        <div class="item">
+                            <div class="i-bg">
+                                <i class="fa fa-envelope "></i>
+                            </div>
+                            <span>{% translate "E-mail" %}</span>
+                            <p>
+                                <a href="mailto:{{ store.email }}">{{ store.email }}</a>
+                            </p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="data flex">
+            {% include "store/components/form.html" with button=button_text %}
+            <div class="info">
+                <h2>{% translate "Feel free to ask any questions or share your opinion." %}</h2>
+                <p>{% translate "Every e-mail is answered within 24 hours." %}</p>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

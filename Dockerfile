@@ -10,6 +10,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV DJANGO_SETTINGS_MODULE=config.settings
 ENV USE_DOCKER=True
 
+# install dependencies system
+ARG BUILD_DEPS="curl"
+RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_DEPS
+
 RUN pip install --upgrade --no-cache-dir pip && \
 	pip install --no-cache-dir poetry
 

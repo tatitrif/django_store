@@ -1,5 +1,6 @@
 app/src/pyproject.toml
-app/src/poetry.lock
+app/src/pyproject.toml
+docker/postgres/*
 poetry.lock
 *migrations
 *static

@@ -28,7 +28,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class ContactInfo(BaseModel):
+class StoreInfo(BaseModel):
     site = models.OneToOneField(
         Site, on_delete=models.CASCADE, default=1, related_name="site"
     )
@@ -68,11 +68,45 @@ class ContactInfo(BaseModel):
             MaxLengthValidator(150),
         ],
     )
+    description = HTMLField(
+        verbose_name=_("Short description"),
+        null=True,
+        blank=True,
+        validators=[MaxLengthValidator(300)],
+    )
+    meta_description = models.CharField(
+        verbose_name=_("meta_description"),
+        null=True,
+        blank=True,
+        max_length=50,
+        validators=[
+            MaxLengthValidator(50),
+        ],
+    )
+    meta_keywords = models.CharField(
+        verbose_name=_("meta_keywords"),
+        null=True,
+        blank=True,
+        max_length=50,
+        validators=[
+            MaxLengthValidator(50),
+        ],
+    )
+
+    title = models.CharField(
+        verbose_name=_("Title"),
+        null=True,
+        blank=True,
+        max_length=50,
+        validators=[
+            MaxLengthValidator(50),
+        ],
+    )
 
     class Meta:
-        db_table = f"{SCHEME_DB}contact_info"
-        verbose_name = _("Store contact info")
-        verbose_name_plural = _("Stores contact info")
+        db_table = f"{SCHEME_DB}store_info"
+        verbose_name = _("Store Info")
+        verbose_name_plural = _("Stores Info")
 
     def __str__(self):
         return self.site.name

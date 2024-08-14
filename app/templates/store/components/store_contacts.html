@@ -1,0 +1,17 @@
+{% if store_info %}
+    <ul>
+        {% for store in store_info %}
+            {% if store.phone %}
+                <li>
+                    <a href="tel:{{ store.phone }}">{{ store.phone }}</a>
+                </li>
+            {% endif %}
+            {% if store.email %}
+                <li>
+                    <a href="mailto:{{ store.email }}">{{ store.email }}</a>
+                </li>
+            {% endif %}
+            {% if store.address %}<li>{{ store.address }}</li>{% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

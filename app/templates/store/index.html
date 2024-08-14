@@ -1,1 +1,15 @@
 {% extends "base.html" %}
+{% block title_section %}
+    <style>
+        #title_section {
+            background: rgb(252 175 42 / 40%);
+            background-size: cover;
+        }
+    </style>
+    <section id="title_section">
+        <div class="container flex">
+            <h1>{{ store_name }}</h1>
+            <div class="description pt-20">{{ store_description|safe }}</div>
+        </div>
+    </section>
+{% endblock title_section %}

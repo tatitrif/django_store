@@ -1,3 +1,9 @@
+services:
+  django:
+    environment:
+      DEBUG: False
+    depends_on:
+      - postgres
   postgres:
     image: postgres:16
     env_file:
