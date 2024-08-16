@@ -1,0 +1,19 @@
+{% load i18n %}
+{% if user.is_authenticated %}
+    <li>
+        <a href="{% url "account:profile" %}">{{ user.username }}</a>
+    </li>
+    <li>
+        <form method="post" action="{% url "account:logout" %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-blue">{% translate "LogOut" %}</button>
+        </form>
+    </li>
+{% else %}
+    <li>
+        <a href="{% url "account:login" %}">{% translate "Log in" %}</a>
+    </li>
+    <li>
+        <a href="{% url "account:register" %}">{% translate "Sign Up" %}</a>
+    </li>
+{% endif %}

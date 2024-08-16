@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% translate "Registration" %}</h1>
+    {% include "store/components/form.html" with button=button_text %}
+    {% include "account/components/social-login.html" %}
+{% endblock content %}

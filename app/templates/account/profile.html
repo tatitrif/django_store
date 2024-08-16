@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% translate "Profile" %}</h1>
+    <div class="account pb-20">
+        <div class="row">
+            <div class="col">
+                <div class="images">
+                    {% if user.image %}
+                        <img src="{{ user.image.url }}" alt="{{ user.username }}">
+                    {% else %}
+                        <i class="fa fa-user-alt"></i>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="data">{% include "store/components/form.html" with button=button_text %}</div>
+                {% if user.has_usable_password %}
+                    <hr>
+                    <p>
+                        <a href="{% url "account:password_change" %}">{% translate "Change password" %}</a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

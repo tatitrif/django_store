@@ -4,7 +4,6 @@ app/media/*
 docker/postgres/*
 poetry.lock
 *migrations
-*static
 .ruff_cache/
 .mypy_cache/
 # Byte-compiled / optimized / DLL files

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% translate "Welcome!" %}</h1>
+    <p>
+        {% translate "You have successfully registered on the site! To log in, you must log in using this" %}
+        <a href="{% url "account:login" %}">{% translate "link" %}</a>
+    </p>
+{% endblock content %}

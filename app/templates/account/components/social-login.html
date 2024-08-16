@@ -1,0 +1,9 @@
+{% load static %}
+{% load i18n %}
+<hr>
+<p>{% translate "or login with" %}</p>
+<p>
+    <a href="{% url "social:begin" 'github' %}">
+        <img src="{% static "account/img/github.png" %}" alt="github">
+    </a>
+</p>

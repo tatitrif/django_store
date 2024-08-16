@@ -9,6 +9,8 @@ urlpatterns = [
     path("tinymce/", include("tinymce.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("catalog.api.urls")),
+    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("account/", include("account.urls", namespace="account")),
     path("", include("catalog.urls", namespace="catalog")),
     path("", include("store.urls", namespace="store")),
 ]

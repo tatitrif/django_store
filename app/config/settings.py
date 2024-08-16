@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "store.apps.StoreConfig",
     "catalog.apps.CatalogConfig",
+    "account.apps.AccountConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -248,12 +249,51 @@ DEFAULT_CURRENCY_SYMBOL = "₽"
 PAGINATE_BY = os.environ.get("PAGINATE_BY", 2)
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PARSER_CLASSES': [
-    #     'rest_framework.parsers.JSONParser',
-    # ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 2,
 }
+
+AUTHENTICATION_BACKENDS = [
+    "social_core.backends.github.GithubOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+    "account.authentication.EmailAuthBackend",
+]
+
+AUTH_USER_MODEL = "account.User"
+
+LOGIN_REDIRECT_URL = "account:profile"
+LOGOUT_REDIRECT_URL = "store:home"
+LOGIN_URL = "account:login"
+
+EMAIL_BACKEND_console = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND_smtp = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = EMAIL_BACKEND_console if DEBUG else EMAIL_BACKEND_smtp
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.yandex.ru")
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+SOCIAL_AUTH_PIPELINE = (
+    "social_core.pipeline.social_auth.social_details",
+    "social_core.pipeline.social_auth.social_uid",
+    "social_core.pipeline.social_auth.auth_allowed",
+    "social_core.pipeline.social_auth.social_user",
+    "social_core.pipeline.user.get_username",
+    "social_core.pipeline.user.create_user",
+    "users.pipeline.new_users_handler",
+    "social_core.pipeline.social_auth.associate_user",
+    "social_core.pipeline.social_auth.load_extra_data",
+    "social_core.pipeline.user.user_details",
+)
+
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")

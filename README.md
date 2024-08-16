@@ -50,9 +50,6 @@
 * [bandit](https://github.com/pycqa/bandit)
   поиск распространенных проблем безопасности в Python
 
-* [isort](https://github.com/pycqa/isort)
-  сортирует импорты
-
 * [django-upgrade](https://github.com/adamchainz/django-upgrade)
   Автоматически обновляйте код проекта Django
 
