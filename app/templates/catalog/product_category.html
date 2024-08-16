@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load mptt_tags %}
+{% block breadcrumbs %}
+    {% recursetree category.get_family %}
+    {% if not node == category %}
+        <li class="breadcrumb-item">
+            <a class="breadcrumb-link" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        </li>
+    {% endif %}
+{% endrecursetree %}
+<li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+{% endblock breadcrumbs %}
+{% block content %}
+    {% if category.get_descendants %}
+        <div class="pb-20" id="category__section">
+            <div class="list__categories">
+                {% for item in category.get_descendants %}
+                    {% include "catalog/components/category_card.html" %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="pb-20" id="page__category">
+        <div class="list__product">
+            {% for product in products %}
+                {% include "catalog/components/product_card.html" %}
+            {% endfor %}
+            {% include "catalog/components/paginator.html" %}
+        </div>
+    </div>
+{% endblock content %}

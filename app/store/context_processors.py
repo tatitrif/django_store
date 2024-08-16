@@ -10,6 +10,7 @@ top_menu_exists = PageInfo.top_menu_obj.filter(site_id=settings.SITE_ID).exists(
 bottom_menu = PageInfo.bottom_menu_obj.filter(site_id=settings.SITE_ID)
 bottom_menu_exists = PageInfo.bottom_menu_obj.filter(site_id=settings.SITE_ID).exists()
 lang = settings.LANGUAGE_CODE
+currency = settings.DEFAULT_CURRENCY_SYMBOL
 
 
 def get_store_context(request):
@@ -23,4 +24,5 @@ def get_store_context(request):
         meta_description=store.first().meta_description if store_exists else "",
         meta_keywords=store.first().meta_keywords if store_exists else "",
         title=store.first().title if store_exists else "",
+        currency=currency,
     )

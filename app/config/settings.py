@@ -37,9 +37,13 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "captcha",
     "tinymce",
+    "mptt",
+    "rest_framework",
+    "django_filters",
 ]
 LOCAL_APPS = [
     "store.apps.StoreConfig",
+    "catalog.apps.CatalogConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -238,3 +242,18 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SITE_ID = 1
+
+DEFAULT_CURRENCY_SYMBOL = "₽"
+
+PAGINATE_BY = os.environ.get("PAGINATE_BY", 2)
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.JSONParser',
+    # ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 2,
+}

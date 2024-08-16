@@ -1,0 +1,35 @@
+{% load catalog_tags %}
+{% if page_obj.has_other_pages %}
+    <nav class="list-pages">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_nuber }}">|<</a>
+                </li>
+            {% endif %}
+            {% get_proper_elided_page_range paginator page_obj.number 1 1 as page_range %}
+            {% for i in page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active page-item">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                {% else %}
+                    {% if i == paginator.ELLIPSIS %}
+                        <li class="page-item">
+                            <span class="page-link">{{ paginator.ELLIPSIS }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{{ text }}page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a href="?{{ text }}page={{ page_obj.next_page_number }}">>|</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

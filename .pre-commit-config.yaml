@@ -42,11 +42,6 @@ repos:
     hooks:
       - id: bandit
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-
   - repo: https://github.com/PyCQA/flake8
     rev: 7.1.0
     hooks:
@@ -64,14 +59,8 @@ repos:
     hooks:
       - id: djlint-reformat-django
       - id: djlint-django
+        args: ["--ignore", "H006,D018"]
 
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.4.0
-    hooks:
-      - id: ruff
-        args:
-          - --fix
-      - id: ruff-format
 
   - repo: local
     hooks:

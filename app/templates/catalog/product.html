@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+{% load static %}
+{% load i18n %}
+{% block breadcrumbs %}
+    {% with product.category.all as category %}
+        {% if category %}
+            {% recursetree product.get_category %}
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+            </li>
+            {% for item in node.get_children %}
+                <li class="breadcrumb-item">
+                    <a class="breadcrumb-link" href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        {% endrecursetree %}
+        <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    {% endif %}
+{% endwith %}
+{% endblock breadcrumbs %}
+{% block content %}
+    <div class="catalog pb-20">
+        <div class="row">
+            <div class="col">
+                <div class="images">
+                    {% for image in product.get_image_set %}
+                        {% if forloop.counter == 1 %}
+                            <div id="main-image">
+                                <img src="{{ image }}" alt="{{ product.name }}">
+                            </div>
+                        {% else %}
+                            <div class="thumbnail">
+                                <img class="img-thumbnail" src="{{ image }}" alt="{{ product.name }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not product.get_image_set %}<i class="fa fa-image"></i>{% endif %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="product">
+                    {% if product.brand %}
+                        <div class="brand">
+                            <a href="{{ product.brand.get_absolute_url }}">{{ product.brand }}</a>
+                        </div>
+                    {% endif %}
+                    <div class="name">{{ product.name }}</div>
+                    {% if product.price %}
+                        <div class="prices">
+                            <span class="active-price">{{ product.price }}{{ currency }}</span>
+                        </div>
+                    {% endif %}
+                    {{ product.long_descr|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

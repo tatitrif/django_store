@@ -123,6 +123,10 @@
                             {% endif %}
                         {% endblock footer_menu %}
                         <div class="col col__nav">
+                            <div class="title">{% translate "Product Categories" %}</div>
+                            {% include "store/components/footer_categories.html" %}
+                        </div>
+                        <div class="col col__nav">
                             <div class="title">{% translate "Contacts" %}</div>
                             {% include "store/components/store_contacts.html" %}
                             <ul>

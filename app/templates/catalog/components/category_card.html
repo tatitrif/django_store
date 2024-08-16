@@ -1,0 +1,10 @@
+<a href="{{ item.get_absolute_url }}" class="item">
+    {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+    {% else %}
+        <i class="fa fa-icons"></i>
+    {% endif %}
+    <div class="data">
+        <div class="title">{{ item.name }}</div>
+    </div>
+</a>

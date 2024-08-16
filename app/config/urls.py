@@ -7,6 +7,9 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("captcha/", include("captcha.urls")),
     path("tinymce/", include("tinymce.urls")),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/", include("catalog.api.urls")),
+    path("", include("catalog.urls", namespace="catalog")),
     path("", include("store.urls", namespace="store")),
 ]
 

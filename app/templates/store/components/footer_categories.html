@@ -1,0 +1,16 @@
+{% load catalog_tags %}
+{% load mptt_tags %}
+{% category_tree as cat %}
+<ul>
+    {% recursetree cat %}
+    {% if node.is_root_node %}
+        {% if node == category %}
+            <b>{{ node.name }}</b>
+        {% else %}
+            <li>
+                <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endrecursetree %}
+</ul>

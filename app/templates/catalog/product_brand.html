@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load mptt_tags %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">{{ brand.name }}</li>
+{% endblock breadcrumbs %}
+{% block content %}
+    <div class="pb-20" id="page__category">
+        <div class="list__product">
+            {% for product in products %}
+                {% include "catalog/components/product_card.html" %}
+            {% endfor %}
+            {% include "catalog/components/paginator.html" %}
+        </div>
+    </div>
+{% endblock content %}

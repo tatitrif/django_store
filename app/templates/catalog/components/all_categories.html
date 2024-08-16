@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load mptt_tags %}
+{% load catalog_tags %}
+<div class="list__categories">
+    {% category_tree as cat %}
+    <ul>
+        {% recursetree cat %}
+        <li>
+            {% if node == category %}
+                <b>{{ node.name }}</b>
+            {% else %}
+                <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+            {% endif %}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+</div>

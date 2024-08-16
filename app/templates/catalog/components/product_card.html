@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="item flex">
+    <div class="image">
+        <a href="{{ product.get_absolute_url }}">
+            {% if product.get_image %}
+                <img class="img-fluid"
+                     src="{{ product.get_image }}"
+                     alt="{{ product.name }}">
+            {% else %}
+                <i class="fa fa-image"></i>
+            {% endif %}
+        </a>
+    </div>
+    <div class="product__info">
+        {% if product.brand %}<div class="brand">{{ product.brand }}</div>{% endif %}
+        <div class="title">{{ product.name }}</div>
+        {% if product.description %}<div class="description">{{ product.description|safe }}</div>{% endif %}
+    </div>
+    <div class="product__detail">
+        <div class="rating flex">
+            <div class="score">
+                <i class="fa fa-star"></i>{{ product.rating }}
+            </div>
+        </div>
+        {% if product.price %}<div class="price flex">{{ product.price }}{{ currency }}</div>{% endif %}
+        <a href="{{ product.get_absolute_url }}" class="btn btn-blue">{% translate "Details" %}</a>
+    </div>
+</div>
