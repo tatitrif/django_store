@@ -4,7 +4,34 @@ from django.test import TestCase
 from django.urls import reverse
 
 from .forms import FeedbackForm
-from .models import Feedback
+from .models import Feedback, PageInfo
+
+
+class StoreModelViewTestCase(TestCase):
+    def test_page_info(self):
+        slug = "page_info_slug"
+        page_info = PageInfo.objects.create(
+            name="page_info_name",
+            slug=slug,
+        )
+        count = PageInfo.objects.all().count()
+        path = reverse("store:page_info", kwargs={"slug": page_info.slug})
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(count, 1)
+        self.assertIn(page_info.slug, page_info.get_absolute_url())
+
+
+class StoreUrlsTestCase(TestCase):
+    def test_urls_home(self):
+        response = self.client.get(reverse("store:home"))
+        self.assertEqual(response.request["PATH_INFO"], reverse("store:home"))
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_urls_feedback(self):
+        response = self.client.get(reverse("store:feedback"))
+        self.assertEqual(response.request["PATH_INFO"], reverse("store:feedback"))
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
 class FeedbackTestCase(TestCase):
