@@ -1,0 +1,10 @@
+{% load i18n %}
+<div class="cart">
+    <form class="form"
+          action="{% url "cart:cart_add" product.id %}"
+          method="post">
+        {% csrf_token %}
+        {{ cart_product_form }}
+        <button type="submit" class="btn btn-blue">{% translate "Add to cart" %}</button>
+    </form>
+</div>

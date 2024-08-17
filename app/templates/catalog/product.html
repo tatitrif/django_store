@@ -51,6 +51,7 @@
                             <span class="active-price">{{ product.price }}{{ currency }}</span>
                         </div>
                     {% endif %}
+                    {% include "cart/components/add_to_cart.html" %}
                     {{ product.long_descr|safe }}
                 </div>
             </div>

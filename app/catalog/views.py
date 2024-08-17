@@ -1,3 +1,4 @@
+from cart.forms import CartAddProductForm
 from config.settings import PAGINATE_BY
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
@@ -35,6 +36,7 @@ class ViewProduct(DetailView):
         context["meta_keywords"] = product.meta_keywords
         context["meta_description"] = product.meta_description
         context["product"] = product
+        context["cart_product_form"] = CartAddProductForm
 
         return context
 

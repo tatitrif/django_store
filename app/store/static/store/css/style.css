@@ -37,7 +37,7 @@
 }
 
 /* Reset */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+html, body, div, span, button, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -167,6 +167,31 @@ header .flex {
 header nav li a {
     font-weight: 500;
     color: var(--black-light);
+}
+
+header .cart {
+    position: relative;
+}
+
+header .cart .basket_count {
+    position: absolute;
+    top: 0;
+    left: 13px;
+    display: block;
+    width: 17px;
+    height: 17px;
+    line-height: 1;
+    text-align: center;
+    background: #3A8EEC;
+    border-radius: 50%;
+    font-style: normal;
+    font-size: 90%;
+    color: #fff;
+
+}
+
+header .cart .basket_price {
+    margin-left: 15px;
 }
 
 /* Footer */
@@ -544,7 +569,7 @@ input::placeholder, textarea::placeholder {
     margin-left: 10px;
 }
 
-.list__categories, .list__product .image, .catalog .images {
+.list__categories, .list__product .image, .catalog .images, .account .images {
     position: relative;
 }
 
@@ -553,6 +578,26 @@ input::placeholder, textarea::placeholder {
     top: 30%;
     left: 33%;
     font-size: 500%;
+}
+
+.cart .image {
+    position: relative;
+    width: 60px;
+}
+
+.cart .image i {
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    font-size: 150%;
+}
+
+.cart .update-btn {
+    margin-left: 5px
+}
+
+.cart .cart-total {
+    text-align: right
 }
 
 .form .btn i {

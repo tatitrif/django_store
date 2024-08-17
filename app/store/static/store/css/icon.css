@@ -48,6 +48,22 @@
     content: "\f406";
 }
 
+.fa-trash:before {
+    content: "\f1f8";
+}
+
+.fa-check:before {
+    content: "\f00c";
+}
+
+.fa-long-arrow-alt-left:before {
+    content: "\f30a";
+}
+
+.fa-shopping-basket:before {
+    content: "\f291";
+}
+
 @font-face {
     font-family: "Font Awesome 5 Free";
     font-style: normal;

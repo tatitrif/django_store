@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% translate "Shopping cart" %}
+{% endblock title %}
+{% block content %}
+    {% if not cart %}
+        <h1>{% translate "Your shopping cart is empty" %}</h1>
+    {% else %}
+        <h1>{% translate "Your shopping cart" %}</h1>
+        <section class="cart">
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col image">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        {% if product.get_image %}
+                                            <img width="60" src="{{ product.get_image }}" alt="{{ product.name }}">
+                                        {% else %}
+                                            <i class="fa fa-image"></i>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col name">
+                                    <a href="{{ product.get_absolute_url }}" class="blue-link d-block mb-2">{{ product.name }}</a>
+                                </div>
+                                <div class="col ">
+                                    <form action="{% url "cart:cart_add" product.id %}"
+                                          method="post"
+                                          class="cart-quantity d-flex align-items-center justify-content-center">
+                                        {{ item.update_quantity_form.quantity }}
+                                        {{ item.update_quantity_form.override }}
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                aria-label="Update"
+                                                class="update-btn d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col checkout-cart-price">
+                                    *
+                                    {{ item.price }}{{ currency }}
+                                </div>
+                                <div class="col checkout-cart-total">
+                                    =
+                                    {{ item.total_price }}{{ currency }}
+                                </div>
+                                <div class="col cart_remove">
+                                    <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                aria-label="Delete"
+                                                class="delete-btn d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+            <div class="card-body cart-total">
+                <b>Total</b>: {{ cart.get_total_price }}{{ currency }}
+            </div>
+        </section>
+    {% endif %}
+    <hr>
+    <div class="row">
+        <div class="col">
+            <i class="fa fa-long-arrow-alt-left me-2"></i>
+            <a href="{% url "store:home" %}" class="button light">{% translate "Continue shopping" %}</a>
+        </div>
+    </div>
+{% endblock content %}

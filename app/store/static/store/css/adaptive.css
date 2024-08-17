@@ -8,16 +8,6 @@
         padding: 0 16px;
     }
 
-    header {
-        min-height: 90px;
-        box-sizing: border-box;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 222;
-        background: #fff;
-    }
 
     header .contact {
         display: none;

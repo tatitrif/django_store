@@ -45,6 +45,7 @@ LOCAL_APPS = [
     "store.apps.StoreConfig",
     "catalog.apps.CatalogConfig",
     "account.apps.AccountConfig",
+    "cart.apps.CartConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -154,6 +155,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "store.context_processors.get_store_context",
+                "cart.context_processors.cart",
             ],
         },
     },
@@ -297,3 +299,5 @@ SOCIAL_AUTH_PIPELINE = (
 
 SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
 SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
+
+CART_SESSION_ID = "cart"
