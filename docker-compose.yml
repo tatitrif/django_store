@@ -1,10 +1,15 @@
 
 services:
-  django:
+  app:
     env_file:
       - .env
     environment:
       - USE_DOCKER=True
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=user
+      - RABBITMQ_PASSWORD=pass
+      - CELERY_BROKER_URL="amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWORD}@{RABBITMQ_HOST}:{RABBITMQ_PORT}"
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,6 +20,17 @@ services:
     volumes:
       - static_volume:/app/static
       - ./app:/app
+
+  django:
+    extends:
+      service: app
+    command: >
+      bash -c "python manage.py collectstatic --noinput
+      && python manage.py makemigrations store catalog account order
+      && python manage.py migrate
+      && python manage.py ensure_adminuser --no-input
+      && gunicorn --bind 0.0.0.0:8000 config.wsgi"
+
   nginx:
     image: nginx:1.27.0
     container_name: nginx
@@ -29,6 +45,28 @@ services:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
       - static_volume:/static
     restart: always
+
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: "rabbitmq:4.0-rc-management"
+    environment:
+      - RABBITMQ_DEFAULT_PASS=pass
+      - RABBITMQ_DEFAULT_USER=user
+    networks:
+      - develop-net
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  celery:
+    extends:
+      service: app
+    command: >
+      bash -c "celery -A config worker -l info"
+    depends_on:
+      - rabbitmq
+      - django
 
 volumes:
   static_volume:

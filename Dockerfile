@@ -25,8 +25,3 @@ RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 # copy project
 COPY ./app .
-
-ENTRYPOINT  python manage.py collectstatic --noinput && \
-			python manage.py makemigrations store catalog account && \
-			python manage.py migrate && python manage.py ensure_adminuser --no-input  && \
-			gunicorn --bind 0.0.0.0:8000 config.wsgi

@@ -46,6 +46,7 @@ LOCAL_APPS = [
     "catalog.apps.CatalogConfig",
     "account.apps.AccountConfig",
     "cart.apps.CartConfig",
+    "order.apps.OrderConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -275,7 +276,7 @@ EMAIL_BACKEND_smtp = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_BACKEND = EMAIL_BACKEND_console if DEBUG else EMAIL_BACKEND_smtp
 
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "admin@example.com")
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.yandex.ru")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
@@ -301,3 +302,5 @@ SOCIAL_AUTH_GITHUB_KEY = os.environ.get("SOCIAL_AUTH_GITHUB_KEY")
 SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
 
 CART_SESSION_ID = "cart"
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")

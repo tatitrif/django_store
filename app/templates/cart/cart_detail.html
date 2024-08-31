@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load static %}
 {% block title %}
     {% translate "Shopping cart" %}
 {% endblock title %}
@@ -53,7 +52,7 @@
                                     <form action="{% url "cart:cart_remove" product.id %}" method="post">
                                         {% csrf_token %}
                                         <button type="submit"
-                                                aria-label="Delete"
+                                                aria-label="Remove"
                                                 class="delete-btn d-flex align-items-center justify-content-center">
                                             <i class="fa fa-trash"></i>
                                         </button>
@@ -67,6 +66,7 @@
             <div class="card-body cart-total">
                 <b>Total</b>: {{ cart.get_total_price }}{{ currency }}
             </div>
+            {% include "store/components/form.html" with button=button_text %}
         </section>
     {% endif %}
     <hr>
