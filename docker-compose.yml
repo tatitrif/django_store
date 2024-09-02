@@ -5,18 +5,11 @@ services:
       - .env
     environment:
       - USE_DOCKER=True
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=user
-      - RABBITMQ_PASSWORD=pass
-      - CELERY_BROKER_URL="amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWORD}@{RABBITMQ_HOST}:{RABBITMQ_PORT}"
     build:
       context: .
       dockerfile: Dockerfile
     networks:
       - develop-net
-    expose:
-      - 8000
     volumes:
       - static_volume:/app/static
       - ./app:/app
@@ -24,6 +17,8 @@ services:
   django:
     extends:
       service: app
+    expose:
+      - "8000"
     command: >
       bash -c "python manage.py collectstatic --noinput
       && python manage.py makemigrations store catalog account order chat
@@ -34,7 +29,6 @@ services:
   daphne:
     extends:
       service: app
-
     command: >
       bash -c "daphne -p 9001 config.asgi:application"
 
@@ -54,27 +48,22 @@ services:
       - static_volume:/static
     restart: always
 
-  rabbitmq:
-    container_name: rabbitmq
-    hostname: rabbitmq
-    image: "rabbitmq:4.0-rc-management"
-    environment:
-      - RABBITMQ_DEFAULT_PASS=pass
-      - RABBITMQ_DEFAULT_USER=user
-    networks:
-      - develop-net
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   celery:
     extends:
       service: app
     command: >
       bash -c "celery -A config worker -l info"
     depends_on:
-      - rabbitmq
+      - redis
       - django
+
+  redis:
+    image: redis:7.4.0
+    container_name: redis
+    networks:
+      - develop-net
+    expose:
+      - "6379"
 
 volumes:
   static_volume:

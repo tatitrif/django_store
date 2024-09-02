@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = [
     "mptt",
     "rest_framework",
     "django_filters",
+    "django_celery_results",
 ]
 LOCAL_APPS = [
     "store.apps.StoreConfig",
@@ -312,6 +313,9 @@ SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
 
 CART_SESSION_ID = "cart"
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get(
+    "CELERY_RESULT_BACKEND", "redis://localhost:6379/0"
+)
 
 CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
