@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% translate "Chat Room:" %} {{ room.name }}
+{% endblock title %}
+{% block content %}
+    <div class="chat_room pb-20">
+        <h2>{{ store_name }} {% translate "Chat Room:" %} {{ room.name }}</h2>
+        <div class="row">
+            <div id="old_chat" class="col-12 col-md-8">
+                <div class="mb-2">
+                    <label for="chatLog">{% translate "Last 5 messages" %}</label>
+                </div>
+                <div class="mb-2">
+                    {% for message in latest_messages %}
+                        <div class="message {% if message.user == request.user %}me{% else %}other{% endif %}">
+                            <strong>{{ message.user.username }}</strong>
+                            <span class="date">{{ message.sent_on }}</span>
+                            <br>
+                            {{ message.content }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="mb-2">
+                    <label for="chatLog"></label>
+                    <textarea class="form-control" id="chatLog" readonly></textarea>
+                </div>
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           id="chatMessageInput"
+                           placeholder="{% translate "Enter your chat message" %}">
+                    <div class="input-group-append">
+                        <button class="btn btn-blue" id="chatMessageSend" type="button">{% translate "Send" %}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="onlineUsers">Online users</label>
+                <select multiple class="form-control" id="onlineUsersSelector"></select>
+            </div>
+        </div>
+        {{ room.name|json_script:"roomName" }}
+    </div>
+    <script src="{% static 'chat/js/room.js' %}"></script>
+{% endblock content %}

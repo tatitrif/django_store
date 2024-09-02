@@ -23,6 +23,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1, 10.0.2.2, localhost").spl
 ROOT_URLCONF = "config.urls"
 
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 # APPS
 DJANGO_APPS = [
@@ -47,8 +48,16 @@ LOCAL_APPS = [
     "account.apps.AccountConfig",
     "cart.apps.CartConfig",
     "order.apps.OrderConfig",
+    "chat.apps.ChatConfig",
 ]
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = (
+    [
+        "daphne",
+    ]
+    + DJANGO_APPS
+    + THIRD_PARTY_APPS
+    + LOCAL_APPS
+)
 
 # MIDDLEWARE
 MIDDLEWARE = [
@@ -304,3 +313,5 @@ SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("SOCIAL_AUTH_GITHUB_SECRET")
 CART_SESSION_ID = "cart"
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}

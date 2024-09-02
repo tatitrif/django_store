@@ -604,3 +604,35 @@ input::placeholder, textarea::placeholder {
     font-size: 120%;
     margin-right: 10px;
 }
+#chatLog, #onlineUsersSelector, #roomSelect {
+    height: 350px;
+    background-color: #FFFFFF;
+    resize: none;
+}
+
+
+#old_chat .message {
+    background: #efefef;
+    padding: 10px 20px;
+    border-radius: 4px;
+    width: auto;
+    display: inline;
+    float: left;
+    margin: 10px 10px 0;
+    min-width: 440px;
+    clear: both;
+}
+
+#old_chat .message.me {
+    display: inline;
+    float: right;
+    background: #efefef;
+    color: #000d11;
+}
+
+#old_chat .date {
+    color: #000000;
+    font-style: italic;
+    font-size: 12px;
+    margin-left: 5px;
+}

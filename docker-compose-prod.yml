@@ -4,6 +4,11 @@ services:
       DEBUG: False
     depends_on:
       - postgres
+  daphne:
+    environment:
+      DEBUG: False
+    depends_on:
+      - postgres
   postgres:
     image: postgres:16
     env_file:
